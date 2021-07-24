@@ -1,16 +1,33 @@
-function outerCounter() {
-    let count = 1;
-    return function innerCounter() {
+/*
+    A closure is the combination of a function bundled together (enclosed)
+    with references to its surrounding state (the lexical environment).
+ */
+
+
+function counter() {
+    let count = 0;
+    return function () {
         count++;
-        console.log('count=>', count);
+        return count;
     }
 }
 
-outerCounter()();
+let count = counter();
+console.log(count());
+console.log(count());
+console.log(count());
+console.log(count());
+console.log(count());
+console.log(count());
+console.log(count());
+console.log(count());
+
 
 function publicFunction() {
-    let privateFunction = () => console.log('I was called in privated function');
-    return () => {
+    function privateFunction() {
+        console.log('I was called in privated function');
+    }
+    return function () {
         privateFunction();
     }
 }
