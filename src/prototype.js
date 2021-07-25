@@ -191,4 +191,9 @@ the nice thing...if you understand __proto__ and Function.prototype, questions l
 NOTE: Some people tend to not call the internal Prototype property as __proto__,
 I've used this name through the post to distinguish it clearly to the Functional.
 prototype property as two different things.
+
+
+https://stackoverflow.com/questions/310870/use-of-prototype-vs-this-in-javascript
+https://stackoverflow.com/questions/4508313/advantages-of-using-prototype-vs-defining-methods-straight-in-the-constructor
+https://stackoverflow.com/questions/572897/how-does-javascript-prototype-work
 */
