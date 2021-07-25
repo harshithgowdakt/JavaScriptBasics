@@ -9,10 +9,10 @@ Particle.prototype.show = function () {
 
 var p = new Particle();
 
-console.log("p.__proto__", p.__proto__);
-console.log("p.__proto__.__proto__", p.__proto__.__proto__);
-console.log("p.__proto__.__proto__.__proto__", p.__proto__.__proto__.__proto__);
+console.log("p.__proto__", p.__proto__); //Particle prototype
+console.log("p.__proto__.__proto__", p.__proto__.__proto__); //Object.prototype
+console.log("p.__proto__.__proto__.__proto__", p.__proto__.__proto__.__proto__); //null
 
-console.log("Particle.prototype", Particle.prototype);
-console.log("Particle.prototype", Particle.prototype.__proto__);
+console.log("Particle.prototype", Particle.prototype); //Particle prototype
+console.log("Particle.prototype", Particle.prototype.__proto__); //Object.prototype
 console.log("Object.prototype", Object.prototype);
