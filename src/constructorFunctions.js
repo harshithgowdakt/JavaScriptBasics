@@ -8,18 +8,18 @@
 
 function Circle(radius) {
     this.radius = radius;
+}
 
-    this.getRadius = function () {
-        return this.radius;
-    }
+Circle.prototype.getRadius = function () {
+    return this.radius;
+}
 
-    this.getDiameter = function () {
-        return 2 * this.radius;
-    }
+Circle.prototype.getDiameter = function () {
+    return 2 * this.radius;
+}
 
-    this.getCircumference = function () {
-        return 2 * Math.PI * this.radius;
-    }
+Circle.prototype.getCircumference = function () {
+    return 2 * Math.PI * this.radius;
 }
 
 Circle.prototype.getArea = function () {
