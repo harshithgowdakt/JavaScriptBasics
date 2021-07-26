@@ -34,3 +34,14 @@ function publicFunction() {
 
 let privateFunction = publicFunction();
 privateFunction();
+
+//real time exmaple
+
+function testPromise(x) {
+    return new Promise((resolve) => {
+        let s = x + 10;
+        resolve(10);
+    });
+}
+
+let sum = testPromise(1);
