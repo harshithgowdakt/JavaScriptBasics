@@ -1,9 +1,18 @@
 
 /*
-   When a function is executed with new, it does the following steps:
-1. A new empty object is created and assigned to this.
-2. The function body executes. Usually it modifies this, adds new properties to it.
-3. The value of this is returned
+1. Creates a blank, plain JavaScript object.
+
+2. Adds a property to the new object (__proto__) that links to the constructor
+function's prototype object
+
+Note: Properties/objects added to the construction function prototype are therefore
+accessible to all instances created from the constructor function (using new).
+
+3. Binds the newly created object instance as the this context (i.e. all references to
+this in the constructor function now refer to the object created in the first step).
+
+4. Returns this if the function doesn't return an object.
+
 */
 
 function Circle(radius) {
@@ -94,3 +103,21 @@ test(Foo2.bar, 'static class method');
 test(new Foo2().bar, 'class method');
 
 test(new Function(), 'new Function()');
+
+
+//exmaples
+function foo() {
+    this.a = 1;
+}
+
+foo();  // using function as a regular function. Ctx is window.
+console.log(this, this.a);  // prints "1"
+foo.call(this);  // explicitly specify execution ctx. The same as just foo() call
+
+var instance = new foo();  // using foo as a constructor
+console.log(instance.a);   // prints "1"
+
+// actually you can do it without new keyword
+var instance = {};  // manually create new object
+foo.call(instance); // manually call foo against this object
+console.log(instance.a);   // prints "1"
