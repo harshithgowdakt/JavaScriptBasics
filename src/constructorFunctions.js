@@ -56,3 +56,41 @@ console.log("radius", circle2.getRadius());
 console.log("diameter", circle2.getDiameter());
 console.log("circumference", circle2.getCircumference());
 console.log("area", circle2.getArea());
+
+
+// callable and constructable
+
+function isConstructor(f) {
+    try {
+        new f();
+    } catch (err) {
+        if (err.message.indexOf('is not a constructor') >= 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function test(f, name) {
+    console.log(`${name} is constructable: ${isConstructor(f)}`);
+}
+
+function foo() { }
+test(foo, 'function declaration');
+test(function () { }, 'function expression');
+test(() => { }, 'arrow function');
+
+class Foo { }
+test(Foo, 'class declaration');
+test(class { }, 'class expression');
+
+test({ foo() { } }.foo, 'object method');
+
+class Foo2 {
+    static bar() { }
+    bar() { }
+}
+test(Foo2.bar, 'static class method');
+test(new Foo2().bar, 'class method');
+
+test(new Function(), 'new Function()');
