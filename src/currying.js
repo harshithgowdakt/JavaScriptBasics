@@ -1,3 +1,8 @@
+/*
+    currying is the technique of converting a function that takes multiple arguments
+    into a sequence of functions that each takes a single argument.
+ */
+
 function adder(x) {
     return function (y) {
         return x + y;
@@ -37,3 +42,19 @@ console.log(multiply4(2));
 console.log(multiply4(3));
 console.log(multiply4(4));
 console.log(multiply4(5));
+
+
+//exmaple
+
+let arr = [1, 2, 3, 4, 5, 6];
+
+console.log(arr.map(a => a + 2));
+
+function add(a) {
+    return function (b) {
+        return a + b;
+    }
+}
+
+console.log(arr.map(add(2)));
+
