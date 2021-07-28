@@ -9,6 +9,7 @@ console.log(Math.floor(true)); //1
 console.log(Math.floor(false)); //0
 console.log(Math.floor("1.2")) //1
 console.log(Math.floor("someRandomString")); //NaN
+console.log(Math.floor(-0)); //-0
 
 
 /*
