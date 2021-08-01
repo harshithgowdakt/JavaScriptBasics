@@ -25,19 +25,19 @@ function FunctionX() {
     }
 }
 
-function FunctionY() {
-}
-
-FunctionY.prototype.print = function () {
-    console.log("Calling print!");
-}
-
 var xobjects = [];
 console.time('x');
 for (let i = 0; i < 2000000; i++) {
     xobjects.push(new FunctionX());
 }
 console.timeEnd('x');
+
+function FunctionY() {
+}
+
+FunctionY.prototype.print = function () {
+    console.log("Calling print!");
+}
 
 var yobjects = [];
 console.time('y');
