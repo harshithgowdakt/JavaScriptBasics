@@ -9,4 +9,3 @@ console.log('use info:', os.userInfo());
 console.log('total mem:', os.totalmem() / 1024 / 1024 / 1024, "GB");
 console.log('get priority:', os.getPriority());
 console.log('load average:', os.loadavg());
-
