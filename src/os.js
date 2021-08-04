@@ -1,6 +1,5 @@
 const os = require('os');
 
-
 console.log('cpu count:', os.cpus().length);
 console.log('arch:', os.arch());
 console.log('home-dir:', os.homedir());
