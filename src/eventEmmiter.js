@@ -23,3 +23,12 @@ eventEmitter.emit('done');
 eventEmitter.emit('error');
 
 
+
+function onClick() {
+    console.log('this', this);
+}
+
+eventEmitter.on('click', onClick())
+eventEmitter.on('click', onClick);
+eventEmitter.on('click', onClick.bind(this))
+eventEmitter.emit('click');
