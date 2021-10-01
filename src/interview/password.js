@@ -1,22 +1,22 @@
-function getMinAndMaxTime(k, ar, str) {
-    let retries = k;
+function getMinAndMaxTime(maxRetries, passwords, correctPassword) {
+    let retries = maxRetries;
     let minTime = 0;
     let maxTime = 0;
     let found = false;
-    for (let i = 0; i < ar.length; i++) {
+    for (let i = 0; i < passwords.length; i++) {
         retries -= 1;
         if (!found)
             minTime += 1;
 
         maxTime += 1;
-        if (str === ar[i])
+        if (correctPassword === passwords[i])
             found = true;
 
-        if (str.length < ar[i].length)
+        if (correctPassword.length < passwords[i].length)
             break;
 
         if (retries <= 0) {
-            retries = k;
+            retries = maxRetries;
             if (!found) {
                 minTime += 5;
             }
