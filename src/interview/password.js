@@ -1,4 +1,4 @@
-function solve(k, ar, str) {
+function getMinAndMaxTime(k, ar, str) {
     let retries = k;
     let minTime = 0;
     let maxTime = 0;
@@ -26,4 +26,4 @@ function solve(k, ar, str) {
     return [minTime, maxTime];
 }
 
-console.log(solve(2, ["awd", "aa1", "bbb", "ccc", "ddd", "qqq", "qawdw"], "aa1"));
+console.log(getMinAndMaxTime(2, ["awd", "aa1", "bbb", "ccc", "ddd", "qqq", "qawdw"], "aa1"));
