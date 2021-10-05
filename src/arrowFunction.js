@@ -2,6 +2,7 @@ let person1 = {
     firstname: 'Harshith',
     lastname: 'Gowda',
     sayHello: function () {
+        console.log(this);
         console.log(`Hello ${this.firstname}`);
     }
 }
@@ -11,7 +12,7 @@ let person2 = {
     firstname: 'Harshith',
     lastname: 'Gowda',
     sayHello: () => {
+        console.log(this)
         console.log(`Hello ${this.firstname}`);
     }
 }
-person2.sayHello();
