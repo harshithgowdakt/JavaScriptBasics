@@ -1,12 +1,10 @@
 const numbers = [5, 6, 2, 3, 7];
 
-const max = Math.max.apply(null, numbers);
+console.log("max-apply", Math.max.apply(null, numbers));
+console.log("min-apply", Math.min.apply(null, numbers));
 
-console.log(max);
+console.log("min-call", Math.min.call(null, ...numbers));
+console.log("max-call", Math.max.call(null, ...numbers));
 
-const min = Math.min.apply(null, numbers);
-
-console.log(min);
-
-console.log(Math.min.call(null, ...numbers));
-console.log(Math.max.call(null, ...numbers));
+let bindMax = Math.max.bind(null, ...numbers);
+console.log("max-bind", bindMax());
