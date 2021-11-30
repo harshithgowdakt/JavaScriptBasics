@@ -48,3 +48,16 @@ for (const value of obj) {
 for (const [key, value] of Object.entries(obj)) {
     console.log(`${key} : ${value}`)
 }
+
+
+let x = {
+    a: 10,
+    b: 10
+}
+
+let y = {
+    a: 10,
+    b: 10
+}
+
+console.log(x == y);

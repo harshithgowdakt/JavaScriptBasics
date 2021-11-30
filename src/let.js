@@ -6,8 +6,8 @@
  */
 
 
-// console.log("x", x);
-// let x = 10;
+console.log("x", x);
+let x = 10;
 
 var funcs = [];
 // let's create 3 functions
@@ -40,4 +40,11 @@ for (let i = 0; i < 3; i++) {
 for (var j = 0; j < 3; j++) {
     // and now let's run each one to see
     funcs[j]();
+}
+
+let ex = [1, 2, 3]
+for (let index = 0; index < 3; index++) {
+    setTimeout(function () {
+        console.log("inside set timeout", index, ex[index]);
+    }, 1000);
 }
