@@ -46,7 +46,7 @@ let primaryContact: Contact = {
 
 type ContactFields = keyof Contact;
 
-function getValue<T>(source: T, propertyName: keyof T) {
+function getValue<T, U extends keyof T>(source: T, propertyName: U) {
     return source[propertyName];
 }
 
