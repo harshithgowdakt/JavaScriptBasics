@@ -39,3 +39,15 @@ let primaryContact: Contact = {
     name: "harshith",
     status: "new"
 }
+
+/**
+ * keyof operator
+ */
+
+type ContactFields = keyof Contact;
+
+function getValue<T>(source: T, propertyName: keyof T) {
+    return source[propertyName];
+}
+
+let id = getValue(primaryContact, "id");
