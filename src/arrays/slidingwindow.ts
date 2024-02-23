@@ -34,8 +34,22 @@ function sumOfSubArrays(arr: number[], k: number) {
   return sums;
 }
 
-let arr = [1, 4, 2, 10, 2, 3, 1, 0, 20];
+function smallestSubarrayWithGivenSum(arr: number[], s: number): number {
+  let minLength = Number.MAX_VALUE;
+  let windowSum = 0;
+  let windowStart = 0;
+  for (let i = 0; i < arr.length; i++) {
+    windowSum += arr[i];
+    while (windowSum >= s) {
+      minLength = Math.min(minLength, i - windowStart + 1);
+      windowSum -= arr[windowStart];
+      windowStart++;
+    }
+  }
+  return minLength === Number.MAX_VALUE ? 0 : minLength;
+}
 
+let arr = [1, 4, 2, 10, 2, 3, 1, 0, 20];
 let k = 3;
 let maxSum = maxSumSubArray(arr, k);
 
@@ -51,3 +65,5 @@ if (sums == -1) {
 } else {
   console.log("sum of subarrays of size ", sums);
 }
+
+console.log(smallestSubarrayWithGivenSum(arr, 7));
