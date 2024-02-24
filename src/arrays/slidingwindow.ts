@@ -80,6 +80,40 @@ function lengthOfLongestSubstring(s: string) {
   return len;
 }
 
+/**
+ * The problem statement for "Buy and Sell Stock to Maximize Profit" typically goes like this:
+
+  Problem Statement
+  You are given an array prices where prices[i] is the price of a given stock on the i-th day.
+
+  You want to maximize your profit by choosing a single day to buy one stock and choosing a different 
+  day in the future to sell that stock. Return the maximum profit you can achieve from this transaction. 
+  If you cannot achieve any profit, return 0.
+
+  Constraints
+  You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).
+  The number of days (the length of the array prices) is at least 1.
+  Example 1
+  Input: prices = [7,1,5,3,6,4]
+  Output: 5
+  Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+  Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+ */
+
+function maxProfit(prices: number[]) {
+  let start = Number.MAX_VALUE;
+  let profit = 0;
+
+  for (let end = 0; end < prices.length; end++) {
+    if (prices[end] < start) {
+      start = prices[end];
+    } else {
+      profit = Math.max(prices[end] - start, profit);
+    }
+  }
+  return profit;
+}
+
 let arr = [1, 4, 2, 10, 2, 3, 1, 0, 20];
 let k = 3;
 let maxSum = maxSumSubArray(arr, k);
