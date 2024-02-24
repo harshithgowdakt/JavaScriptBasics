@@ -114,6 +114,27 @@ function maxProfit(prices: number[]) {
   return profit;
 }
 
+/**
+ * Longest Substring with At Most K Distinct Characters
+ * 
+ * Example 1:
+  Input: s = "eceba", k = 2
+  Output: 3
+  Explanation: The substring "ece" contains 2 distinct characters ('e' and 'c') and is the longest such substring.
+ */
+function lengthOfLongestSubstringKDistinct(arr: number[], k: number) {
+  let start = 0;
+  let maxLength = 0;
+  let charsMap = {};
+
+  for (let end = 0; end < arr.length; end++) {
+    if (!charsMap[arr[end]]) {
+      charsMap[arr[end]] = end;
+      maxLength = Math.max(maxLength, end - start + 1);
+    }
+  }
+}
+
 let arr = [1, 4, 2, 10, 2, 3, 1, 0, 20];
 let k = 3;
 let maxSum = maxSumSubArray(arr, k);
