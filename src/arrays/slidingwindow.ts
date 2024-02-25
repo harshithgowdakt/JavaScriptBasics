@@ -115,27 +115,6 @@ function maxProfit(prices: number[]) {
 }
 
 /**
- * Longest Substring with At Most K Distinct Characters
- * 
- * Example 1:
-  Input: s = "eceba", k = 2
-  Output: 3
-  Explanation: The substring "ece" contains 2 distinct characters ('e' and 'c') and is the longest such substring.
- */
-function lengthOfLongestSubstringKDistinct(arr: number[], k: number) {
-  let start = 0;
-  let maxLength = 0;
-  let charsMap = {};
-
-  for (let end = 0; end < arr.length; end++) {
-    if (!charsMap[arr[end]]) {
-      charsMap[arr[end]] = end;
-      maxLength = Math.max(maxLength, end - start + 1);
-    }
-  }
-}
-
-/**
  * Given an integer array nums, find the subarray
  with the largest sum, and return its sum.
 
@@ -219,5 +198,36 @@ function lengthOfLongestSubstr(str: string) {
     maxLen = Math.max(maxLen, end - start + 1);
   }
 
+  return maxLen;
+}
+
+/**
+ Given a string s and an integer k, find the length of the longest substring of s that contains 
+ at most k distinct characters.
+
+  Example
+  Input: s = "eceba", k = 2
+  Output: 3
+  Explanation: The longest substring that contains at most 2 distinct characters is "ece",
+  which has a length of 3. Another valid substring is "eba".
+ */
+
+function lengthOfLongestSubstringKDistinct(str: string, k: number) {
+  let charToCountMap = {};
+  let start = 0;
+  let maxLen = 0;
+  for (let end = 0; end < str.length; end++) {
+    if (charToCountMap[str[end]] == undefined) {
+      charToCountMap[str[end]] = 0;
+    }
+    charToCountMap[str[end]] += 1;
+
+    while (Object.keys(charToCountMap).length > k) {
+      charToCountMap[str[start]] -= 1;
+      if (charToCountMap[str[start]] == 0) delete charToCountMap[str[start]];
+      start++;
+    }
+    maxLen = Math.max(maxLen, end - start + 1);
+  }
   return maxLen;
 }
