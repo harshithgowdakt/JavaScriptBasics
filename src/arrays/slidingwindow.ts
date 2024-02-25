@@ -185,3 +185,39 @@ function lengthOfLongestSubstringTwoDistinct(str: string) {
   }
   return maxLen;
 }
+
+/**
+ * Problem Statement
+  Given a string s, find the length of the longest substring without repeating characters.
+
+  Examples
+  Input: s = "abcabcbb"
+  Output: 3
+  Explanation: The answer is "abc", with the length of 3.
+
+  Input: s = "bbbbb"
+  Output: 1
+  Explanation: The answer is "b", with the length of 1.
+
+  Input: s = "pwwkew"
+  Output: 3
+  Explanation: The answer could be "wke" or "kew", both with the length of 3.
+  Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
+ */
+
+function lengthOfLongestSubstr(str: string) {
+  let charToIndexMap = {};
+  let maxLen = 0;
+  let start = 0;
+  for (let end = 0; end < str.length; end++) {
+    if (charToIndexMap[str[end]] == undefined) {
+      charToIndexMap[str[end]] = end;
+    } else {
+      start = Math.max(start, charToIndexMap[str[end]] + 1);
+      charToIndexMap[str[end]] = end;
+    }
+    maxLen = Math.max(maxLen, end - start + 1);
+  }
+
+  return maxLen;
+}
