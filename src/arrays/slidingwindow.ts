@@ -146,37 +146,13 @@ function lengthOfLongestSubstringKDistinct(arr: number[], k: number) {
   Explanation: The subarray [4,-1,2,1] has the largest sum 6.
  */
 
-function maxSumOfSubArray(nums: number[]) {
+const maxSubArray = function (nums) {
   if (nums.length == 0) return 0;
-  var maxSum = Number.MIN_VALUE;
-  var sum = 0;
-  for (var i = 0; i < nums.length; i++) {
-    sum = Math.max(sum + nums[i], nums[i]);
-    maxSum = Math.max(maxSum, sum);
+  let maxSum = nums[0];
+  let currentSum = nums[0];
+  for (let i = 1; i <= nums.length; i++) {
+    currentSum = Math.max(nums[i], currentSum + nums[i]);
+    maxSum = Math.max(maxSum, currentSum);
   }
   return maxSum;
-}
-
-let arr = [1, 4, 2, 10, 2, 3, 1, 0, 20];
-let k = 3;
-let maxSum = maxSumSubArray(arr, k);
-
-if (maxSum == -1) {
-  console.log("Invalid input");
-} else {
-  console.log("Maximum sum of subarray of size ", maxSum);
-}
-
-let sums = sumOfSubArrays(arr, k);
-if (sums == -1) {
-  console.log("Invalid input");
-} else {
-  console.log("sum of subarrays of size ", sums);
-}
-
-console.log(smallestSubarrayWithGivenSum(arr, 7));
-console.log(lengthOfLongestSubstring("abcabcbb"));
-console.log(lengthOfLongestSubstring("bbbbbbbbbbbbbbb"));
-console.log(lengthOfLongestSubstring("pwwkew"));
-
-console.log(maxSumOfSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]));
+};
