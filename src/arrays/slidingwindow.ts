@@ -156,3 +156,32 @@ const maxSubArray = function (nums) {
   }
   return maxSum;
 };
+
+/**
+ Given a string s, find the length of the longest substring that contains at most two distinct characters.
+  Input: s = "eceba"
+
+  Output: 3
+  Explanation: The longest substring with at most two distinct characters is "ece", which has a length of 3.
+  Input: s = "ccaabbb"
+
+  Output: 5
+  Explanation: The longest substring with at most two distinct characters is "aabbb", which has a length of 5.
+ */
+
+function lengthOfLongestSubstringTwoDistinct(str: string) {
+  let charToCountMap = {};
+  let start = 0;
+  let maxLen = 0;
+  for (let end = 0; end < str.length; end++) {
+    if (charToCountMap[str[end]] == undefined) charToCountMap[str[end]] = 1;
+    else charToCountMap[str[end]] += 1;
+    while (Object.keys(charToCountMap).length > 2) {
+      charToCountMap[str[start]] -= 1;
+      if (charToCountMap[str[start]] == 0) delete charToCountMap[str[start]];
+      start++;
+    }
+    maxLen = Math.max(maxLen, end - start + 1);
+  }
+  return maxLen;
+}
