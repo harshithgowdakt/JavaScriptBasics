@@ -231,3 +231,70 @@ function lengthOfLongestSubstringKDistinct(str: string, k: number) {
   }
   return maxLen;
 }
+
+/**
+ * Given a string s and an integer k, you can choose any character of the string and change it to any 
+ * other uppercase English character at most k times. Find the length of the longest substring containing 
+ * the same letter you can get after performing the above operations.
+  Input: s = "AABABBA", k = 1
+  Output: 4
+  Explanation: By changing one 'A' to 'B', the substring "BBBB" can be formed, which is the longest substring 
+  containing the same letter after at most one character change. The length of this substring is 4.
+ */
+
+function characterReplacement(str: string, k: number) {
+  let charToCountMap = new Map();
+  let maxLen = 0;
+  let start = 0;
+
+  for (let end = 0; end < str.length; end++) {
+    charToCountMap.set(str[end], (charToCountMap.get(str[end]) || 0) + 1);
+
+    let maxFreq = Math.max(...Array.from(charToCountMap.values()));
+    let sumOfAllChar = Array.from(charToCountMap.values()).reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
+    let numOfCharReplacement = sumOfAllChar - maxFreq;
+
+    if (numOfCharReplacement > k) {
+      charToCountMap.set(str[start], charToCountMap.get(str[start]) - 1);
+      if (charToCountMap.get(str[start]) === 0) {
+        charToCountMap.delete(str[start]);
+      }
+      start++;
+    }
+    maxLen = Math.max(maxLen, end - start + 1);
+  }
+  return maxLen;
+}
+
+function characterReplacementOptimised(str, k) {
+  let charToCountMap = new Map();
+  let maxLen = 0;
+  let start = 0;
+  let maxFreq = 0; // Tracks the frequency of the most common character in the current window
+
+  for (let end = 0; end < str.length; end++) {
+    const endChar = str[end];
+    charToCountMap.set(endChar, (charToCountMap.get(endChar) || 0) + 1);
+
+    // Correctly update maxFreq using the frequency of the current character
+    maxFreq = Math.max(maxFreq, charToCountMap.get(endChar));
+
+    // If the window size minus maxFreq is greater than k, shrink the window
+    if (end - start + 1 - maxFreq > k) {
+      const startChar = str[start];
+      charToCountMap.set(startChar, charToCountMap.get(startChar) - 1);
+      if (charToCountMap.get(startChar) === 0) {
+        charToCountMap.delete(startChar);
+      }
+      start++;
+    }
+
+    // Update maxLen to the size of the current window if it's larger than any previous window
+    maxLen = Math.max(maxLen, end - start + 1);
+  }
+
+  return maxLen;
+}
