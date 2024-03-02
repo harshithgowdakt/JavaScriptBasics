@@ -313,33 +313,31 @@ Input: s1 = "ab", s2 = "eidboaoo"
 Output: false
 */
 
-function permutation(s: string, t: string) {
-  if (t.length > s.length) return false;
+var checkInclusion = function (s1, s2) {
+  let s1Count = new Array(26).fill(0);
+  let s2Count = new Array(26).fill(0);
 
-  let targetCount = new Array(26).fill(0);
-  let strCount = new Array(26).fill(0);
+  let ACharCode = "a".charCodeAt(0);
 
-  const ACharCode = "a".charCodeAt(0);
-
-  function arraysEqual(a, b) {
+  function arraysEqaul(a, b) {
     for (let i = 0; i < 26; i++) {
       if (a[i] !== b[i]) return false;
     }
     return true;
   }
 
-  for (let i = 0; i < t.length; i++) {
-    targetCount[t.charCodeAt(i) - ACharCode]++;
-    strCount[t.charCodeAt(i) - ACharCode]++;
+  for (let i = 0; i < s1.length; i++) {
+    s1Count[s1.charCodeAt(i) - ACharCode]++;
+    s2Count[s2.charCodeAt(i) - ACharCode]++;
   }
 
-  if (arraysEqual(targetCount, strCount)) return true;
+  if (arraysEqaul(s1Count, s2Count)) return true;
 
-  for (let i = s.length; i < s.length; i++) {
-    strCount[s.charCodeAt(i - s.length) - ACharCode]--;
-    strCount[s.charCodeAt(i) - ACharCode]++;
-
-    if (arraysEqual(targetCount, strCount)) return true;
+  for (let i = s1.length; i < s2.length; i++) {
+    s2Count[s2.charCodeAt(i - s1.length) - ACharCode]--;
+    s2Count[s2.charCodeAt(i) - ACharCode]++;
+    if (arraysEqaul(s1Count, s2Count)) return true;
   }
+
   return false;
-}
+};
