@@ -341,3 +341,56 @@ var checkInclusion = function (s1, s2) {
 
   return false;
 };
+
+/**
+  Given two strings s and t of lengths m and n respectively, return the minimum window substring
+ of s such that every character in t (including duplicates) is included in the window. 
+ If there is no such substring, return the empty string "".
+
+  The testcases will be generated such that the answer is unique.
+  Example 1:
+
+  Input: s = "ADOBECODEBANC", t = "ABC"
+  Output: "BANC"
+  Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+  Example 2:
+
+  Input: s = "a", t = "a"
+  Output: "a"
+  Explanation: The entire string s is the minimum window.
+  Example 3:
+
+  Input: s = "a", t = "aa"
+  Output: ""
+  Explanation: Both 'a's from t must be included in the window.
+  Since the largest window of s only has one 'a', return empty string.
+*/
+
+const minWin = function (s: string, t: string) {
+  let charToCountMap = new Map();
+  let minLen = Number.MAX_VALUE;
+  let start = 0;
+  let counter = 0;
+  let minString = "";
+
+  for (let i = 0; i < t.length; i++) {
+    charToCountMap[t[i]] = (charToCountMap[t[i]] || 0) + 1;
+  }
+
+  for (let end = 0; end < s.length; end++) {
+    charToCountMap[s[end]] = (charToCountMap[s[end]] || 0) - 1;
+    if (charToCountMap[s[end]] >= 0) counter++;
+
+    while (counter === t.length) {
+      let currentWindow = end - start + 1;
+      if (currentWindow < minLen) {
+        minLen = currentWindow;
+        minString = s.substring(start, end + 1);
+      }
+      charToCountMap[s[start]]++;
+      if (charToCountMap[s[start]] > 0) counter--;
+      start++;
+    }
+  }
+  return minString;
+};
