@@ -1,30 +1,40 @@
-var checkInclusion = function (s1, s2) {
-  let s1Count = new Array(26).fill(0);
-  let s2Count = new Array(26).fill(0);
+const minWinPermutation = function (s, t) {
+  let targetCharToCountMap = {};
+  let stringCharToCountMap = {};
 
-  let ACharCode = "a".charCodeAt(0);
+  let start = 0;
+  let minLen = Number.MAX_VALUE;
+  let minString = "";
 
-  function arraysEqaul(a, b) {
-    for (let i = 0; i < 26; i++) {
-      if (a[i] !== b[i]) return false;
+  const isMapGreathanOrEqual = function (a, b) {
+    let keys = Object.keys(targetCharToCountMap);
+    for (let i = 0; i < keys.length; i++) {
+      if (b[keys[i]] === undefined) return false;
+      else if (b[keys[i]] < a[keys[i]]) return false;
     }
     return true;
+  };
+
+  for (let i = 0; i < t.length; i++) {
+    targetCharToCountMap[t[i]] = (targetCharToCountMap[t[i]] || 0) + 1;
+    stringCharToCountMap[s[i]] = (stringCharToCountMap[s[i]] || 0) + 1;
   }
 
-  for (let i = 0; i < s1.length; i++) {
-    s1Count[s1.charCodeAt(i) - ACharCode]++;
-    s2Count[s2.charCodeAt(i) - ACharCode]++;
+  if (isMapGreathanOrEqual(targetCharToCountMap, stringCharToCountMap))
+    return s.substring(start, t.length);
+
+  for (let end = t.length; end < s.length; end++) {
+    stringCharToCountMap[s[end]] = (stringCharToCountMap[s[end]] || 0) + 1;
+    while (isMapGreathanOrEqual(targetCharToCountMap, stringCharToCountMap)) {
+      if (end - start + 1 < minLen) {
+        minLen = end - start + 1;
+        minString = s.substring(start, end + 1);
+      }
+      stringCharToCountMap[s[start]]--;
+      start++;
+    }
   }
-
-  if (arraysEqaul(s1Count, s2Count)) return true;
-
-  for (let i = s1.length; i < s2.length; i++) {
-    s2Count[s2.charCodeAt(i - s1.length) - ACharCode]--;
-    s2Count[s2.charCodeAt(i) - ACharCode]++;
-    if (arraysEqaul(s1Count, s2Count)) return true;
-  }
-
-  return false;
+  return minString;
 };
 
-console.log(checkInclusion("ab", "eidbaooo"));
+console.log(minWinPermutation("ADOBECODEBANC", "ABC"));
