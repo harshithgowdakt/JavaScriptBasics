@@ -35,5 +35,3 @@ const twoSumPointers = function (nums, target) {
   }
   return [-1, -1];
 };
-
-
