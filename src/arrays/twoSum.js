@@ -18,4 +18,22 @@ const twoSum = function (nums, target) {
   }
 };
 
-twoSum([2, 7, 11, 15], 9);
+
+// two sum sorted array.
+const twoSumPointers = function (nums, target) {
+  let start = 0,
+    end = nums.length - 1;
+  while (start < end) {
+    let sum = nums[start] + nums[end];
+    if (sum === target) {
+      return [start + 1, end + 1];
+    } else if (sum < target) {
+      start++;
+    } else {
+      end--;
+    }
+  }
+  return [-1, -1];
+};
+
+
