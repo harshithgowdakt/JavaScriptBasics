@@ -23,7 +23,7 @@ const threeSum = function (nums) {
         } else if (sum > 0) {
           end--;
         } else {
-          res.push([nums[i]], nums[start], nums[end]);
+          res.push([nums[i], nums[start], nums[end]]);
           while (start < end && nums[start] === nums[start + 1]) start++;
           while (start < end && nums[end] == nums[end - 1]) end--;
           start++;
@@ -31,6 +31,6 @@ const threeSum = function (nums) {
         }
       }
     }
-    return res;
   }
+  return res;
 };
