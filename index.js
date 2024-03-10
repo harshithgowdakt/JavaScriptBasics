@@ -1,22 +1,19 @@
-const moveZeroes = function (nums) {
-  if (nums.length <= 1) return nums;
-  let l = 0,
-    r = 1;
-  while (r < nums.length) {
-    if (nums[l] != 0) {
-      l++;
-      r++;
-    } else if (nums[r] == 0) {
-      r++;
+var sortedSquares = function (nums) {
+  let res =[];
+  let L = 0,
+    R = nums.length - 1;
+  for (let i = nums.length - 1; i >= 0; i--) {
+    let leftSquare = nums[L] * nums[L];
+    let rightSquare = nums[R] * nums[R];
+    if (leftSquare > rightSquare) {
+      res[i] = leftSquare;
+      L++;
     } else {
-      let temp = nums[r];
-      nums[r] = nums[l];
-      nums[l] = temp;
-      l++;
-      r++;
+      res[i] = rightSquare;
+      R--;
     }
   }
-  return nums;
+  return res;
 };
 
-console.log(moveZeroes([1, 12]));
+console.log(sortedSquares([-7, -3, 2, 3, 11]));
