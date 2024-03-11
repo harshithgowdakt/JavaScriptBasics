@@ -18,17 +18,5 @@
 function interSectionOfArray(nums1, nums2) {
   let set1 = new Set(nums1);
   let set2 = new Set(nums2);
-  let intersection = new Set();
-
-  if (set1.size < set2.size) {
-    set1.forEach((item) => {
-      if (set2.has(item)) intersection.add(item);
-    });
-  } else {
-    set2.forEach((item) => {
-      if (set1.has(item)) intersection.add(item);
-    });
-  }
-
-  return Array.from(intersection);
+  return Array.from(new Set([...set1].filter((num) => set2.has(num))));
 }

@@ -1,19 +1,24 @@
-var sortedSquares = function (nums) {
-  let res =[];
-  let L = 0,
-    R = nums.length - 1;
-  for (let i = nums.length - 1; i >= 0; i--) {
-    let leftSquare = nums[L] * nums[L];
-    let rightSquare = nums[R] * nums[R];
-    if (leftSquare > rightSquare) {
-      res[i] = leftSquare;
-      L++;
-    } else {
-      res[i] = rightSquare;
-      R--;
-    }
-  }
-  return res;
-};
+/**
+    Given two integer arrays nums1 and nums2, 
+    return an array of their intersection. 
+    Each element in the result must be unique and
+    you may return the result in any order.
 
-console.log(sortedSquares([-7, -3, 2, 3, 11]));
+    Example 1:
+
+    Input: nums1 = [1,2,2,1], nums2 = [2,2]
+    Output: [2]
+    Example 2:
+
+    Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+    Output: [9,4]
+    Explanation: [4,9] is also accepted.
+*/
+
+function interSectionOfArray(nums1, nums2) {
+  let set1 = new Set(nums1);
+  let set2 = new Set(nums2);
+  return Array.from(new Set([...set1].filter((num) => set2.has(num))));
+}
+
+console.log(interSectionOfArray([4, 9, 5], [9, 4, 9, 8, 4]));
