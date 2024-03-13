@@ -1,14 +1,18 @@
-function logestSumSubArrayBruteForce(nums, target) {
-  let maxLen = 0;
-
+function logestSumSubArrayPrefixSum(nums, target) {
+  let prefixSumMap = new Map();
+  let maxLen = 0,
+    sum = 0;
   for (let i = 0; i < nums.length; i++) {
-    let sum = 0;
-    for (let j = i; j < nums.length; j++) {
-      sum += nums[j];
-      if (sum == target) maxLen = Math.max(maxLen, j - i + 1);
-    }
+    sum += nums[i];
+    if (sum === target) maxLen = Math.max(maxLen, i + 1);
+
+    let rem = sum - target;
+    if (prefixSumMap.has(rem))
+      maxLen = Math.max(maxLen, i - prefixSumMap.get(rem));
+
+    if (!prefixSumMap.has(sum)) prefixSumMap.set(sum, i);
   }
   return maxLen;
 }
 
-console.log(logestSumSubArrayBruteForce([2, 3, 5, 1, 9], 10));
+console.log(logestSumSubArrayPrefixSum([5, 2, 3, 1, 1, 1, 1, 1, 5, 1, 9], 10));
