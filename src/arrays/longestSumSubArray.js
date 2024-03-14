@@ -46,3 +46,31 @@ function logestSumSubArrayPrefixSum(nums, target) {
 }
 
 console.log(logestSumSubArrayPrefixSum([5, 2, 3, 1, 1, 1, 1, 1, 5, 1, 9], 10));
+
+function logestSumSubArrayTwoPointers(nums, target) {
+  let maxLen = 0,
+    L = 0,
+    R = 0,
+    sum = 0;
+
+  // expand sub array
+  while (R < nums.length) {
+    sum += nums[R];
+
+    // shrink sub array
+    while (sum > target && L <= R) {
+      sum -= nums[L];
+      L++;
+    }
+
+    // update the maxLen if sum is equal to target
+    if (sum == k) {
+      maxLen = Math.max(maxLen, R - L + 1);
+    }
+    R++;
+  }
+}
+
+console.log(
+  logestSumSubArrayTwoPointers([5, 2, 3, 1, 1, 1, 1, 1, 5, 1, 9], 10)
+);
