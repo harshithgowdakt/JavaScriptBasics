@@ -1,23 +1,22 @@
-function logestSumSubArrayTwoPointers(nums, target) {
-  let maxLen = 0;
-  let L = 0,
-    R = 0;
-  let sum = 0;
-
-  while (R < nums.length) {
-    sum += nums[R];
-    while (sum > target && L <= R) {
-      sum -= nums[L];
-      L++;
+class NumArray {
+  constructor(nums) {
+    this.prefixSums = new Array(nums.length).fill(0);
+    let sum = 0;
+    for (let i = 0; i < nums.length; i++) {
+      sum += nums[i];
+      this.prefixSums[i] = sum;
     }
-    if (sum == target) {
-      maxLen = Math.max(maxLen, R - L + 1);
-    }
-    R++;
   }
-  return maxLen;
+
+  sumRange(i, j) {
+    if (i == 0) return this.prefixSums[j];
+    else return this.prefixSums[j] - this.prefixSums[i - 1];
+  }
 }
 
-console.log(
-  logestSumSubArrayTwoPointers([5, 2, 3, 1, 1, 1, 1, 1, 5, 1, 9], 10)
-);
+// Example usage
+const nums = [-2, 0, 3, -5, 2, -1];
+const numArray = new NumArray(nums);
+console.log(numArray.sumRange(0, 2)); // Output: 1
+console.log(numArray.sumRange(2, 5)); // Output: -1
+console.log(numArray.sumRange(0, 5)); // Output: -3
