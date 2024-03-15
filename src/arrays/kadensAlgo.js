@@ -38,9 +38,18 @@ function maxSumBetter(nums) {
 function maxSumKadens(nums) {
   let maxSum = Number.MIN_VALUE,
     currentSum = 0;
+  let start = 0,
+    end = 0;
   for (let i = 0; i < nums.length; i++) {
-    currentSum = Math.max(currentSum + nums[i], nums[i]);
-    maxSum = Math.max(maxSum, currentSum);
+    currentSum += nums[i];
+    if (currentSum < nums[i]) {
+      currentSum = nums[i];
+      start = i;
+    }
+    if (currentSum > maxSum) {
+      maxSum = currentSum;
+      end = i;
+    }
   }
-  return maxSum;
+  return nums.slice(start, end + 1);
 }
