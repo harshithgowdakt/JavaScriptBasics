@@ -1,15 +1,19 @@
-const subarraySum = function (nums, k) {
-  let subarrayCount = 0;
-  let prefixSumMap = new Map();
-  let sum = 0;
+const pivotArray = function (nums, pivot) {
+  let ans = [];
+  let leftArr = [],
+    midArr = [],
+    rightArr = [];
+
   for (let i = 0; i < nums.length; i++) {
-    sum += nums[i];
-    if (sum === k) subarrayCount++;
-    let rem = sum - k;
-    if (prefixSumMap.has(rem)) subarrayCount += prefixSumMap.get(rem);
-    prefixSumMap.set(sum, (prefixSumMap.get(sum) || 0) + 1);
+    if (nums[i] < pivot) leftArr.push(nums[i]);
+    else if (nums[i] > pivot) rightArr.push(nums[i]);
+    else midArr.push(nums[i]);
   }
-  return subarrayCount;
+
+  leftArr.forEach((num) => ans.push(num));
+  midArr.forEach((num) => ans.push(num));
+  rightArr.forEach((num) => ans.push(num));
+  return ans;
 };
 
-console.log(subarraySum([1, 2, -1, 2, 3], 3));
+console.log(pivotArray([9, 12, 5, 10, 14, 3, 10], 10));
