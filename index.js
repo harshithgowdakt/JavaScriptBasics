@@ -1,39 +1,11 @@
-var nextPermutation = function (nums) {
-  let index = -1;
-
-  // Helper function to reverse a subarray
-  const reverse = function (arr, start, end) {
-    while (start < end) {
-      [arr[start], arr[end]] = [arr[end], arr[start]];
-      start++;
-      end--;
-    }
-  };
-
-  for (let i = nums.length - 2; i >= 0; i--) {
-    if (nums[i] < nums[i + 1]) {
-      index = i;
-      break;
-    }
+const leaders = function (nums) {
+  let max = Number.MIN_VALUE;
+  let ans = [];
+  for (let i = nums.length - 1; i >= 0; i--) {
+    if (nums[i] > max) ans.push(nums[i]);
+    max = Math.max(max, nums[i]);
   }
-
-  if (index == -1) {
-    reverse(nums, 0, nums.length - 1);
-    return;
-  }
-
-  for (let i = nums.length - 1; i > index; i--) {
-    if (nums[i] > nums[index]) {
-      let temp = nums[i];
-      nums[i] = nums[index];
-      nums[index] = temp;
-      break;
-    }
-  }
-
-  reverse(nums, index + 1, nums.length - 1);
+  return ans.sort((a, b) => a - b);
 };
 
-let nums = [1, 2, 3];
-nextPermutation(nums);
-console.log(nums);
+console.log(leaders([10, 22, 12, 3, 0, 6]));
