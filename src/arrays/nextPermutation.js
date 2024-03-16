@@ -36,10 +36,12 @@ var nextPermutation = function (nums) {
       let tem = arr[start];
       arr[start] = arr[end];
       arr[end] = tem;
+      start++;
+      end--;
     }
   };
 
-  for (let i = n - 2; i >= 0; i--) {
+  for (let i = nums.length - 2; i >= 0; i--) {
     if (nums[i] < nums[i + 1]) {
       index = i;
       break;
@@ -51,8 +53,8 @@ var nextPermutation = function (nums) {
     return;
   }
 
-  for (let i = n - 1; i > index; i--) {
-    if (nums[index] > nums[i]) {
+  for (let i = nums.length - 1; i > index; i--) {
+    if (nums[i] > nums[index]) {
       let temp = nums[i];
       nums[i] = nums[index];
       nums[index] = temp;
