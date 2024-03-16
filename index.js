@@ -1,19 +1,39 @@
-const pivotArray = function (nums, pivot) {
-  let ans = [];
-  let leftArr = [],
-    midArr = [],
-    rightArr = [];
+var nextPermutation = function (nums) {
+  let index = -1;
 
-  for (let i = 0; i < nums.length; i++) {
-    if (nums[i] < pivot) leftArr.push(nums[i]);
-    else if (nums[i] > pivot) rightArr.push(nums[i]);
-    else midArr.push(nums[i]);
+  // Helper function to reverse a subarray
+  const reverse = function (arr, start, end) {
+    while (start < end) {
+      [arr[start], arr[end]] = [arr[end], arr[start]];
+      start++;
+      end--;
+    }
+  };
+
+  for (let i = nums.length - 2; i >= 0; i--) {
+    if (nums[i] < nums[i + 1]) {
+      index = i;
+      break;
+    }
   }
 
-  leftArr.forEach((num) => ans.push(num));
-  midArr.forEach((num) => ans.push(num));
-  rightArr.forEach((num) => ans.push(num));
-  return ans;
+  if (index == -1) {
+    reverse(nums, 0, nums.length - 1);
+    return;
+  }
+
+  for (let i = nums.length - 1; i > index; i--) {
+    if (nums[i] > nums[index]) {
+      let temp = nums[i];
+      nums[i] = nums[index];
+      nums[index] = temp;
+      break;
+    }
+  }
+
+  reverse(nums, index + 1, nums.length - 1);
 };
 
-console.log(pivotArray([9, 12, 5, 10, 14, 3, 10], 10));
+let nums = [1, 2, 3];
+nextPermutation(nums);
+console.log(nums);
