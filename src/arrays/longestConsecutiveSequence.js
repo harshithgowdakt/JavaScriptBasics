@@ -40,11 +40,16 @@ const longestConsecutiveSequenceOpti = function (nums) {
 
   for (let num of numsSet) {
     // Iterate through the set to ensure each number is checked only once
+    // check if it is the first number
+    // [100, 4, 200, 1, 3, 2] - in this case 1, 100, 200 are the first number
+    // we doing this by checking the if there is previous number
     if (!numsSet.has(num - 1)) {
       // Check if it's the start of a sequence
       let currNum = num;
       let currLen = 1;
 
+      // continue to increase the count till sequence exists
+      // 1,2,3,4
       while (numsSet.has(currNum + 1)) {
         // Count the length of the sequence
         currNum++;
