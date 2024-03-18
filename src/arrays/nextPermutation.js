@@ -41,18 +41,25 @@ var nextPermutation = function (nums) {
     }
   };
 
-  for (let i = nums.length - 2; i >= 0; i--) {
-    if (nums[i] < nums[i + 1]) {
-      index = i;
+  // find the first decreasing number
+  // 2 1 5 4 3 = in this case first decreasing number is 1 from right
+  for (let i = nums.length - 1; i >= 0; i--) {
+    if (nums[i] > nums[i - 1]) {
+      index = i - 1;
       break;
     }
   }
 
+  // if we didn't find the decreasing, it is the highest number
+  // 5 4 3 2 1 - we can't have next permutation
   if (index == -1) {
     reverse(nums, 0, nums.length - 1);
     return;
   }
 
+  // next find the next geater number
+  // 2 1 5 4 3 - in this case 3 and swap them
+  // 2 3 5 4 1 - result
   for (let i = nums.length - 1; i > index; i--) {
     if (nums[i] > nums[index]) {
       let temp = nums[i];
@@ -61,6 +68,8 @@ var nextPermutation = function (nums) {
       break;
     }
   }
+
+  // then reverse array from index+1;
   reverse(nums, index + 1, nums.length - 1);
 };
 
