@@ -1,20 +1,30 @@
-function moveZeros(nums) {
-  let L = 0,
-    R = 1;
-  while (R < nums.length - 1) {
-    if (nums[L] != 0) {
-      L++;
-      R++;
-    } else if (nums[R] == 0) {
-      R++;
-    } else {
-      nums[L] = nums[R];
-      nums[R] = 0;
-      L++;
-      R++;
-    }
-    if (L >= R) {
-      R = L + 1;
+//Input: nums = [-1,0,1,2,-1,-4]
+[-4, -1, -1, 0, 1, 2];
+function threeSum(nums) {
+  let ans = [];
+
+  nums = nums.sort((a, b) => a - b);
+
+  for (let i = 0; i < nums.length - 2; i++) {
+    if (i > 0 && nums[i] == nums[i - 1]) continue;
+
+    let start = i + 1,
+      end = nums.length - 1;
+    while (start < end) {
+      let sum = nums[i] + nums[start] + nums[end];
+      if (sum < 0) {
+        start++;
+      } else if (sum > 0) {
+        end--;
+      } else {
+        ans.push([nums[i], nums[start], nums[end]]);
+        while (start < end && nums[start] === nums[start + 1]) start++;
+        while (start < end && nums[end] == nums[end - 1]) end--;
+        start++;
+        end--;
+      }
     }
   }
+
+  return ans;
 }
