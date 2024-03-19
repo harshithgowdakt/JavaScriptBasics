@@ -1,17 +1,20 @@
-const logestSumSubArrayWithZeroSum = function (nums) {
-  let prefixSumToIndexMap = new Map();
-  let maxLen = 0;
-  let sum = 0;
-  for (let i = 0; i < nums.length; i++) {
-    sum += nums[i];
-    if (sum == 0) maxLen = i + 1;
-
-    let rem = sum - 0;
-    if (prefixSumToIndexMap.has(rem))
-      maxLen = Math.max(maxLen, i - prefixSumToIndexMap.get(rem));
-    else prefixSumToIndexMap.set(sum, i);
+function moveZeros(nums) {
+  let L = 0,
+    R = 1;
+  while (R < nums.length - 1) {
+    if (nums[L] != 0) {
+      L++;
+      R++;
+    } else if (nums[R] == 0) {
+      R++;
+    } else {
+      nums[L] = nums[R];
+      nums[R] = 0;
+      L++;
+      R++;
+    }
+    if (L >= R) {
+      R = L + 1;
+    }
   }
-  return maxLen;
-};
-
-console.log(logestSumSubArrayWithZeroSum([9, -3, 3, -1, 6, -5]));
+}
