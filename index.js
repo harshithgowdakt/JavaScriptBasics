@@ -1,22 +1,15 @@
-function validParentheses(s) {
-  // create a map of open parentheses to closed parentheses
-  let parenthesesMap = new Map();
-  parenthesesMap.set("}", "{");
-  parenthesesMap.set(")", "(");
-  parenthesesMap.set("]", "[");
+var isAnagram = function (s, t) {
+  if (s.length != t.length) return false;
 
-  //create stack for pushing all the closed parentheses
-  let st = [];
-
+  let ACharCode = "a".charCodeAt(0);
+  let sArray = new Array(26).fill(0);
+  let tArray = new Array(26).fill(0);
   for (let i = 0; i < s.length; i++) {
-    // it is closed paratheneses if it exists in map
-    if (parenthesesMap.has(s[i])) {
-      // check the stack if last one is proper closed parentheses
-      if (st.pop() != parenthesesMap.get(s[i])) return false;
-    } else {
-      st.push(s[i]);
-    }
+    sArray[s.charCodeAt(i) - ACharCode]++;
+    tArray[t.charCodeAt(i) - ACharCode]++;
   }
-  return st.length === 0;
-}
-console.log(validParentheses("()[]{}}"));
+  for (let i = 0; i < 26; i++) {
+    if (sArray[i] != tArray[i]) return false;
+  }
+  return true;
+};

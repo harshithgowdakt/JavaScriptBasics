@@ -20,6 +20,15 @@ Example 3:
 
 Input: s = "(]"
 Output: false
+
+
+Approach
+1. create map of closed parentheses to open parentheses
+2. loop through the string
+3. it it is a open parentheses, put that into stack
+4. if it is a closed parentheses, pop the element from stack and check if it is valid open parentheses
+5. if it is not valid return false
+6. in the end check if stack size is empty.
 */
 
 function validParentheses(s) {
