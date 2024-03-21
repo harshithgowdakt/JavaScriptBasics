@@ -1,15 +1,12 @@
-var isAnagram = function (s, t) {
-  if (s.length != t.length) return false;
-
-  let ACharCode = "a".charCodeAt(0);
-  let sArray = new Array(26).fill(0);
-  let tArray = new Array(26).fill(0);
-  for (let i = 0; i < s.length; i++) {
-    sArray[s.charCodeAt(i) - ACharCode]++;
-    tArray[t.charCodeAt(i) - ACharCode]++;
+class Node {
+  constructor(data1, next1 = null) {
+    this.data = data1;
+    this.next = next1;
   }
-  for (let i = 0; i < 26; i++) {
-    if (sArray[i] != tArray[i]) return false;
-  }
-  return true;
-};
+}
+// Creating a Node 'x' with the first element of the array
+let x = new Node(2);
+// Creating a reference 'y' pointing to the same Node 'x'
+let y = x;
+// Printing the reference 'y', which represents the memory address of the Node 'x'
+console.log(y);
