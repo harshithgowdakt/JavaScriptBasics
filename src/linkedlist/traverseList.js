@@ -6,9 +6,9 @@ class Node {
 }
 
 function arrayToList(nums) {
-  let head = new Node(nums[0]);
+  let head = nums[0];
   let temp = head;
-  for (let i = 1; i < nums.length; i++) {
+  for (let i = 0; i < nums.length; i++) {
     let n = new Node(nums[i]);
     temp.next = n;
     temp = n;
