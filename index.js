@@ -1,13 +1,33 @@
-function majorityBruteForce(nums) {
-  for (let i = 0; i < nums.length; i++) {
-    let count = 0;
-    for (let j = i; j < nums.length; j++) {
-      if (nums[i] == nums[j]) count++;
+function findElementsAppearingMoreThanNOver3(nums) {
+  const n = nums.length;
+  let candidate = null;
+  let count = 0;
 
-      // Corrected condition to check if count is greater than or equal to n/2
-      if (count >= nums.length / 2) return nums[i];
+  // Step 1: Use Boyer-Moore Voting Algorithm to find a candidate for the majority element
+  for (let num of nums) {
+    if (count === 0) {
+      candidate = num;
+      count = 1;
+    } else if (num === candidate) {
+      count++;
+    } else {
+      count--;
     }
   }
-  // Return null if no majority element is found
-  return null;
+
+  // Step 2: Count the occurrences of each element
+  const countMap = new Map();
+  for (let num of nums) {
+    countMap.set(num, (countMap.get(num) || 0) + 1);
+  }
+
+  // Step 3: Identify elements that appear more than n/3 times
+  const result = [];
+  for (let [key, value] of countMap) {
+    if (value > n / 3) {
+      result.push(key);
+    }
+  }
+
+  return result;
 }
