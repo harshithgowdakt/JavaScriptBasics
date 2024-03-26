@@ -61,12 +61,12 @@ function sortOptimal(nums) {
     end = nums.length - 1,
     i = 0;
 
-  while (i < nums.length && start <= end) {
+  while (i <= end && start <= end) {
     if (nums[i] == 0) {
       nums[i] = nums[start];
       nums[start] = 0;
+      start++;
       i++;
-      start;
     } else if (nums[i] === 1) {
       i++;
     } else {
