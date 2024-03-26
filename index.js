@@ -1,36 +1,40 @@
-/**
- * Definition for singly-linked list.
- * function ListNode(val, next) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.next = (next===undefined ? null : next)
- * }
- */
-/**
- * @param {ListNode} head
- * @param {number} n
- * @return {ListNode}
- */
-var removeNthFromEnd = function (head, n) {
-  if (head == null) return null;
+// 1 -> 2 -> 3 -> 4 -> 5
 
-  let dummy = new ListNode(0); // Dummy node to handle edge cases
-  dummy.next = head;
-  let slow = dummy,
-    fast = dummy;
+// 1 -> 2 -> 3 -> null
+// null <- 4 <- 5
 
-  // Move fast pointer n+1 steps ahead
-  for (let i = 0; i <= n; i++) {
-    fast = fast.next;
-  }
+// 1 -> 5 -> 2 -> 4 -> 3
 
-  // Move both pointers until fast reaches the end
-  while (fast != null) {
+function reoder(head) {
+  if (head == null || head.next == null) return head;
+
+  let slow = head,
+    fast = head;
+  // find the middle
+  while (fast && fast.next !== null) {
     slow = slow.next;
-    fast = fast.next;
+    fast = fast.next.next;
   }
 
-  // Remove the nth node from the end
-  slow.next = slow.next.next;
+  let pre = null,
+    curr = slow.next;
+  slow.next = null;
 
-  return dummy.next; // Return the head of the modified list
-};
+  while (curr != null) {
+    let next = curr.next;
+    curr.next = pre;
+    pre = curr;
+    curr = next;
+  }
+
+  let first = head,
+    second = pre;
+  while (first && second) {
+    let temp1 = first.next,
+      temp2 = second.next;
+    first.next = second;
+    second.next = temp1;
+    first = temp1;
+    second = temp2;
+  }
+}
