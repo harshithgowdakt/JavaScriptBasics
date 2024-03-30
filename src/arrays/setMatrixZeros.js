@@ -1,4 +1,10 @@
-var setZeroes = function (matrix) {
+//https://leetcode.com/problems/set-matrix-zeroes/
+
+/**
+ * @param {number[][]} matrix
+ * @return {void} Do not return anything, modify matrix in-place instead.
+ */
+var setZeroesBruteForce = function (matrix) {
   if (matrix.length < 1) return;
 
   let columnLength = matrix.length;
@@ -33,11 +39,3 @@ var setZeroes = function (matrix) {
     }
   }
 };
-
-console.log(
-  setZeroes([
-    [0, 1, 2, 0],
-    [3, 4, 5, 2],
-    [1, 3, 1, 5],
-  ])
-);
