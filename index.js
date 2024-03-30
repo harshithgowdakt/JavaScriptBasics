@@ -1,58 +1,33 @@
 /**
- * Definition for singly-linked list.
- * function ListNode(val, next) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.next = (next===undefined ? null : next)
- * }
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
  */
-/**
- * @param {ListNode} head
- * @param {number} left
- * @param {number} right
- * @return {ListNode}
- */
-var reverseBetween = function (head, left, right) {
-  let dummy = new ListNode(-1, head),
-    leftPre = dummy,
-    curr = head;
+var subarraysWithKDistinct = function (nums, k) {
+  let count = new Map();
+  let leftFar = 0,
+    leftNear = 0,
+    res = 0;
 
-  for (let i = 1; i < left; i++) {
-    leftPre = curr;
-    curr = curr.next;
+  for (let i = 0; i < nums.length; i++) {
+    count.set(nums[i], (count.get(nums[i]) ?? 0) + 1);
+    while (count.size() > k) {
+      count.set(nums[leftNear], count.get(nums[leftNear]) - 1);
+
+      if (count.get(nums[leftNear]) == 0) count.delete(nums[leftNear]);
+      leftNear++;
+      leftFar = leftNear;
+    }
+
+    while (count.get(nums[leftNear]) > 1) {
+      count.set(nums[leftNear], count.get(nums[leftNear]) - 1);
+      leftNear++;
+    }
+
+    if (count.size() == k) {
+      res += leftNear - leftFar + 1;
+    }
   }
 
-  let pre = null;
-
-  for (let i = 0; i < right - left + 1; i++) {
-    let next = curr.next;
-    curr.next = pre;
-    pre = curr;
-    curr = next;
-  }
-
-  leftPre.next.next = curr;
-  leftPre.next = pre;
-
-  return dummy.next;
+  return res;
 };
-
-class ListNode {
-  constructor(val, next) {
-    this.val = val;
-    this.next = next ?? null;
-  }
-}
-
-function arrayToList(nums) {
-  let head = new ListNode(nums[0]);
-  let temp = head;
-  for (let i = 1; i < nums.length; i++) {
-    let n = new ListNode(nums[i]);
-    temp.next = n;
-    temp = n;
-  }
-
-  return head;
-}
-
-reverseBetween(arrayToList([1, 2, 3, 4, 5]), 2, 4);
