@@ -1,11 +1,19 @@
-var isPalindrome = function (x) {
-  let str = x.toString();
-  let L = 0,
-    R = str.length - 1;
-  while (L <= R) {
-    if (str[L++] != str[R--]) return false;
-  }
-  return true;
-};
+/**
+ * @param {string[]} words
+ * @return {string}
+ */
+var firstPalindrome = function (words) {
+  var isPalidrome = (s) => {
+    let l = 0,
+      r = s.length - 1;
+    while (l <= r) {
+      if (s[l++] != s[r--]) return false;
+    }
+    return true;
+  };
 
-console.log(isPalindrome(121));
+  for (let word of words) {
+    if (isPalidrome(word)) return word;
+  }
+  return "";
+};
