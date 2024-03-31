@@ -1,9 +1,8 @@
+//https://leetcode.com/problems/merge-intervals/description/
+
 /**
  * @param {number[][]} intervals
  * @return {number[][]}
- *
- * [[1,3],[2,6],[8,10],[15,18]]
- * [[1,3]]
  */
 var merge = function (intervals) {
   if (intervals.length < 2) return intervals;
@@ -22,12 +21,3 @@ var merge = function (intervals) {
   }
   return ans;
 };
-
-console.log(
-  merge([
-    [1, 3],
-    [2, 6],
-    [8, 10],
-    [15, 18],
-  ])
-);
