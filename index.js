@@ -1,6 +1,9 @@
-var lengthOfLastWord = function (s) {
-  let lastword = s.split(" ").filter((a) => !!a).pop().length;
-  return lastword.pop().length;
-};
+function maxSum(nums) {
+  let maxSum = 0,
+    currSum = 0;
 
-console.log(lengthOfLastWord("   fly me   to   the moon  "));
+  for (let num of nums) {
+    currSum = Math.max(currSum + num, num);
+    maxSum = Math.max(currSum, maxSum);
+  }
+}

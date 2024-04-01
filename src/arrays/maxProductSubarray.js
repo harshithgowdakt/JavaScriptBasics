@@ -33,3 +33,20 @@ var maxProduct = function (nums) {
   }
   return maxPro;
 };
+
+//kadens
+var maxProductKadens = function (nums) {
+  let maxProduct = 0,
+    currMin = 0,
+    currMax = 0;
+
+  for (let num of nums) {
+    let tem = currMax;
+    currMax = Math.max(num, currMin * num, currMax * num);
+    currMin = Math.max(num, tem * num, currMin * num);
+
+    maxProduct = Math.max(currMax, maxProduct);
+  }
+
+  return maxProduct;
+};
