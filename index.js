@@ -1,33 +1,23 @@
-/**
- * @param {number[][]} intervals
- * @return {number[][]}
- *
- * [[1,3],[2,6],[8,10],[15,18]]
- * [[1,3]]
- */
-var merge = function (intervals) {
-  if (intervals.length < 2) return intervals;
-  intervals.sort((a, b) => a[0] - b[0]);
+var countSubarraysSlidingWindow = (nums, minK, maxK) => {
+  let res = 0;
 
-  let ans = [];
-  ans.push(intervals[0]);
+  let L = 0,
+    R = 0;
 
-  for (let i = 1; i < intervals.length; i++) {
-    let lastEnd = ans[ans.length - 1][1];
-    if (intervals[i][0] <= lastEnd) {
-      ans[ans.length - 1][1] = Math.max(lastEnd, intervals[i][1]);
-    } else {
-      ans.push(intervals[i]);
+  const hasValidBound = (arr, i, j, min, max) => {
+    let tempArr = arr.slice(i, j + 1);
+    if (!(Math.min(...tempArr) === min && Math.max(...tempArr) === max))
+      return false;
+    return true;
+  };
+
+  while (R < nums.length) {
+    if (hasValidBound(nums, L, R, minK, maxK)) {
+      res++;
     }
+    if (nums[R] < minK || nums[R] > maxK) L = R + 1;
+    R++;
   }
-  return ans;
+  return res;
 };
-
-console.log(
-  merge([
-    [1, 3],
-    [2, 6],
-    [8, 10],
-    [15, 18],
-  ])
-);
+console.log(countSubarraysSlidingWindow([1, 3, 5, 2, 0, 7], 1, 5));
