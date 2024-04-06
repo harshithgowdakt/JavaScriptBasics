@@ -1,27 +1,27 @@
 /**
- * @param {string} s
- * @return {string}
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
  */
-var minRemoveToMakeValid = function (s) {
-  let stack = [];
-  let indexToRemove = new Set();
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var minDiffInBST = function (root) {
+  let pre, res = Number.MAX_SAFE_INTEGER;
 
-  for (let i = 0; i < s.length; i++) {
-    if (s[i] === "(")
-      stack.push(i);
-    else if (s[i] === ")" && stack.length === 0)
-      indexToRemove.add(i);
-    else if (s[i] === ")" && stack.length !== 0)
-      stack.pop();
+  function inorder(root) {
+    if (root == null) return;
+    inorder(root.left);
+    if (pre != null) {
+      res = Math.min(root.val - pre.val, res);
+    }
+    pre = root;
+    inorder(root.right);
   }
-
-  while (stack.length > 0) {
-    indexToRemove.add(stack.pop());
-  }
-
-  let ans = "";
-  for (let i = 0; i < s.length; i++) {
-    if (!indexToRemove.has(i)) ans += s[i];
-  }
-  return ans;
+  inorder(root)
+  return res
 };
