@@ -1,27 +1,29 @@
 /**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
+ * @param {string} s
+ * @return {boolean}
  */
-/**
- * @param {TreeNode} root
- * @return {number}
- */
-var minDiffInBST = function (root) {
-  let pre, res = Number.MAX_SAFE_INTEGER;
+var checkValidString = function (s) {
+  let openStack = [], starStack = [];
 
-  function inorder(root) {
-    if (root == null) return;
-    inorder(root.left);
-    if (pre != null) {
-      res = Math.min(root.val - pre.val, res);
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === "(") openStack.push(i);
+    else if (s[i] === "*") starStack.push(i);
+    else {
+      if (openStack.length <= 0 && starStack.length <= 0) return false;
+      else if (openStack.length <= 0) starStack.pop();
+      else openStack.pop();
     }
-    pre = root;
-    inorder(root.right);
   }
-  inorder(root)
-  return res
+
+  while (openStack.length > 0) {
+    if (starStack.length <= 0) return false;
+    else if (openStack[openStack.length - 1] > starStack[starStack.length - 1]) return false;
+    else {
+      openStack.pop();
+      starStack.pop();
+    }
+  }
+
+  return true;
 };
+
