@@ -1,29 +1,20 @@
-/**
- * @param {string} s
- * @return {boolean}
- */
-var checkValidString = function (s) {
-  let openStack = [], starStack = [];
+var rotate = function (nums, k) {
+  k = k % nums.length;
 
-  for (let i = 0; i < s.length; i++) {
-    if (s[i] === "(") openStack.push(i);
-    else if (s[i] === "*") starStack.push(i);
-    else {
-      if (openStack.length <= 0 && starStack.length <= 0) return false;
-      else if (openStack.length <= 0) starStack.pop();
-      else openStack.pop();
+  function reverse(arr, start, end) {
+    while (start < end) {
+      let temp = arr[start];
+      arr[start] = arr[end];
+      arr[end] = temp;
+      start++;
+      end--;
     }
   }
 
-  while (openStack.length > 0) {
-    if (starStack.length <= 0) return false;
-    else if (openStack[openStack.length - 1] > starStack[starStack.length - 1]) return false;
-    else {
-      openStack.pop();
-      starStack.pop();
-    }
-  }
-
-  return true;
+  reverse(nums, nums.length - k, nums.length - 1);
+  reverse(nums, 0, k - 1);
+  reverse(nums, 0, nums.length - 1);
+  return nums
 };
 
+console.log(rotate([-1, -100, 3, 99], 2));
