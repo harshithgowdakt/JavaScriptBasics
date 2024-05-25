@@ -12,12 +12,11 @@ var minEatingSpeed = function (piles, h) {
             hours += Math.ceil(pile / speed);
             if (hours > h) return false;
         }
-
         return true;
     }
 
     let minEatingSpeed = Number.MAX_SAFE_INTEGER;
-    while (minSpeed <= maxSpeed) {
+    while (minSpeed < maxSpeed) {
         let mid = Math.floor((maxSpeed + minSpeed) / 2);
 
         if (caEat(mid)) {
