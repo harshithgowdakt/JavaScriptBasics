@@ -1,41 +1,28 @@
-/**
- * @param {number} n
- * @return {string[][]}
- */
-var solveNQueens = function (n) {
-    let ans = [],
-        cols = new Set(),
-        positiveDiag = new Set(),
-        negetiveDiag = new Set(),
-        board = Array(n).fill().map(() => Array(n).fill("."));
-
-    function backtrack(row) {
-        if (row == n) {
-            let copy = board.map((row) => row.join(''));
-            ans.push(copy);
-            return;
+class Solution {
+    kthElement(A, B, n, m, k) {
+        if (A.length > B.length) {
+            [A, B] = [B, A];
         }
 
-        for (let col = 0; col < n; col++) {
-            if (!cols.has(col) &&
-                !positiveDiag.has(row + col) &&
-                !negetiveDiag.has(row - col)) {
+        let start = Math.max(k - B.length, 0), end = Math.min(k, n1);
 
-                cols.add(col);
-                positiveDiag.add(row + col);
-                negetiveDiag.add(row - col);
-                board[row][col] = "Q";
+        while (start <= end) {
+            let mid1 = Math.floor((start + end) / 2);
+            let mid2 = k - mid1 - 2;
 
-                backtrack(row + 1);
+            let aLeft = mid1 >= 0 ? A[mid1] : -Infinity;
+            let bLeft = mid2 >= 0 ? B[mid2] : -Infinity;
 
-                cols.delete(col);
-                positiveDiag.delete(row + col);
-                negetiveDiag.delete(row - col);
-                board[row][col] = ".";
+            let aRight = mid1 + 1 <= A.length - 1 ? A[mid1 + 1] : Infinity;
+            let bRight = mid2 + 1 <= B.length - 1 ? B[mid1 + 1] : Infinity;
+
+            if (aLeft <= bRight && bLeft <= aRight) {
+                return Math.max(aLeft, bLeft);
+            } else if (aLeft > bRight) {
+                end = mid1 - 1;
+            } else {
+                start = mid1 + 1;
             }
         }
     }
-
-    backtrack(0);
-    return ans;
-};
+}
