@@ -1,28 +1,45 @@
-class Solution {
-    kthElement(A, B, n, m, k) {
-        if (A.length > B.length) {
-            [A, B] = [B, A];
-        }
+/**
+ * @param {number[][]} cars
+ * @return {number[]}
+ */
+var getCollisionTimes = function (cars) {
+    const n = cars.length;
+    const stack = []; // Stack to keep track of indices of cars
+    const collisionTimes = new Array(n).fill(-1); // Array to store collision times
 
-        let start = Math.max(k - B.length, 0), end = Math.min(k, n1);
+    // Iterate from the last car to the first
+    for (let i = n - 1; i >= 0; i--) {
+        collisionTimes[i] = -1.0; // Initialize collision time for current car
 
-        while (start <= end) {
-            let mid1 = Math.floor((start + end) / 2);
-            let mid2 = k - mid1 - 2;
+        const currCarPosition = cars[i][0]; // Position of current car
+        const currCarSpeed = cars[i][1]; // Speed of current car
 
-            let aLeft = mid1 >= 0 ? A[mid1] : -Infinity;
-            let bLeft = mid2 >= 0 ? B[mid2] : -Infinity;
+        // Process cars in stack
+        while (stack.length > 0) {
+            const j = stack[stack.length - 1]; // Index of car at the top of the stack
+            const prevCarPosition = cars[j][0]; // Position of car at the top of the stack
+            const prevCarSpeed = cars[j][1]; // Speed of car at the top of the stack
 
-            let aRight = mid1 + 1 <= A.length - 1 ? A[mid1 + 1] : Infinity;
-            let bRight = mid2 + 1 <= B.length - 1 ? B[mid1 + 1] : Infinity;
-
-            if (aLeft <= bRight && bLeft <= aRight) {
-                return Math.max(aLeft, bLeft);
-            } else if (aLeft > bRight) {
-                end = mid1 - 1;
+            // Check conditions for collision calculation
+            if (currCarSpeed <= prevCarSpeed ||
+                (1.0 * (prevCarPosition - currCarPosition) / (currCarSpeed - prevCarSpeed) >= collisionTimes[j] && collisionTimes[j] > 0)) {
+                stack.pop(); // Remove the car from stack if conditions are met
             } else {
-                start = mid1 + 1;
+                break; // Exit loop if conditions are not met
             }
         }
+
+        // If stack is not empty, calculate collision time for current car
+        if (stack.length > 0) {
+            const j = stack[stack.length - 1]; // Index of car at the top of the stack
+            const prevCarPosition = cars[j][0]; // Position of car at the top of the stack
+            const prevCarSpeed = cars[j][1]; // Speed of car at the top of the stack
+
+            collisionTimes[i] = 1.0 * (prevCarPosition - currCarPosition) / (currCarSpeed - prevCarSpeed); // Calculate collision time
+        }
+
+        stack.push(i); // Add current car index to stack
     }
-}
+
+    return collisionTimes;
+};
