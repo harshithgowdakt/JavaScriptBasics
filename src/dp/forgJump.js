@@ -16,3 +16,24 @@ function minimumEnergy(height, n) {
 
     return dp[height.length - 1];
 }
+
+
+function minimumEnergy(height, n) {
+    function recurse(index, memo = {}) {
+        if (index === 0) return 0;
+
+        if (memo[index]) return memo[index];
+
+        let left = recurse(index - 1, memo) + Math.abs(height[index] - height[index - 1]);
+
+        let right = Infinity;
+        if (index > 1) {
+            right = recurse(index - 2, memo) + Math.abs(height[index] - height[index - 2]);
+        }
+
+        memo[index] = Math.min(left, right);
+        return memo[index];
+    }
+
+    return recurse(height.length - 1, {});
+}
