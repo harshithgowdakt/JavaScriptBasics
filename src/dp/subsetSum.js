@@ -26,3 +26,17 @@ function isSubsetSum(arr, n, sum) {
 
     return dfs(0, 0, {});
 }
+
+function isSubsetSumTabulation(arr, n, sum) {
+    let dp = Array(sum + 1).fill(false);
+
+    dp[0] = true;
+
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = sum; j >= arr[i]; j--) {
+            dp[j] = dp[j] || dp[j - arr[i]];
+        }
+    }
+
+    return dp[sum];
+}
