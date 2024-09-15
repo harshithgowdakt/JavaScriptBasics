@@ -3,8 +3,16 @@ function counter() {
     return function () {
         count++;
         return count;
-    };
+    }
 }
-const increment = counter();
-console.log(increment()); // 1 
-console.log(increment()); // 2
+
+let counter1 = counter();
+console.log(counter1());
+console.log(counter1());
+
+let counter2 = counter();
+console.log(counter2());
+console.log(counter2());
+console.log(counter2());
+console.log(counter2());
+console.log(counter2());
