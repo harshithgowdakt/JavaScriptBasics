@@ -1,13 +1,14 @@
-console.log("A");
+function createFunctions() {
+    let arr = [];
+    for (let i = 0; i < 3; i++) {
+        arr.push(function () {
+            console.log(i); // The variable i is shared across all closures
+        });
+    }
+    return arr;
+}
 
-setTimeout(() => {
-    console.log("B");
-}, 0);
-
-Promise.resolve().then(() => {
-    console.log("C");
-}).then(() => {
-    console.log("D");
-});
-
-console.log("E");
+const f = createFunctions();
+f[0](); // 0
+f[1](); // 1
+f[2](); // 2

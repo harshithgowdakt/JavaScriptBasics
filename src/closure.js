@@ -40,3 +40,20 @@ console.log(triple(4));
 console.log(triple(5));
 console.log(triple(6));
 
+function secretHolder() {
+    let secret = 'My secret!';
+
+    return {
+        getSecret: function () {
+            return secret; // Accesses the outer variable "secret"
+        },
+        setSecret: function (newSecret) {
+            secret = newSecret; // Modifies the outer variable "secret"
+        }
+    };
+}
+
+const mySecret = secretHolder();
+console.log(mySecret.getSecret()); // 'My secret!'
+mySecret.setSecret('New secret!');
+console.log(mySecret.getSecret()); // 'New secret!'
