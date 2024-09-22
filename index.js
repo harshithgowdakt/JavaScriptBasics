@@ -18,4 +18,4 @@ const person = {
 
 // person.greet(); // Calling the method greet
 person.welcome();
-person.
+person.welcome2();
