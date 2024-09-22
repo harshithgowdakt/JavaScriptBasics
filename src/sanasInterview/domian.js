@@ -24,7 +24,7 @@ function isValidDomain(email) {
 }
 
 
-app.get('/', (req, res) => {
+app.post('/', (req, res) => {
     try {
         let domain = isValidDomain(req.body.email);
         res.send(`The valid domain is ${domain}`);
