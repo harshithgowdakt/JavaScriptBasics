@@ -21,9 +21,22 @@ person.welcome(); // global object
 person.welcome2(); // object
 
 
-function Person(name) {
-    this.name = name;
+class Person {
+    constructor(name) {
+        this.name = name;
+    }
+
+    greet() {
+        console.log(this.name);
+    }
+
+    delayedGreet() {
+        setTimeout(function () {
+            console.log(this.name); // `this` refers to the global object (or undefined in strict mode)
+        }, 1000);
+    }
 }
 
-const person1 = new Person('Ajay');
-console.log(person1.name); // Logs 'Ajay
+const person2 = new Person('Ajay');
+person2.greet(); // Output: 'Ajay'
+person2.delayedGreet(); // Output: undefined (or error in strict mode)
