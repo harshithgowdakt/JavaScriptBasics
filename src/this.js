@@ -40,3 +40,18 @@ class Person {
 const person2 = new Person('Ajay');
 person2.greet(); // Output: 'Ajay'
 person2.delayedGreet(); // Output: undefined (or error in strict mode)
+
+class Person {
+    constructor(name) {
+        this.name = name;
+    }
+
+    delayedGreet() {
+        setTimeout(() => {
+            console.log(this.name); // Now, `this` refers to the `Person` instance
+        }, 1000);
+    }
+}
+
+const person3 = new Person('Ajay');
+person3.delayedGreet(); // Output: 'Ajay'
