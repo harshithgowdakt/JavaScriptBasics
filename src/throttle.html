@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Throttle Example</title>
+</head>
+<body>
+    <div style="height: 2000px;">Scroll me!</div>
+
+    <script>
+        // Throttle function
+        function throttle(fn, limit) {
+            let inThrottle;
+            return function (...args) {
+                if (!inThrottle) {
+                    fn.apply(this, args);
+                    inThrottle = true;
+                    setTimeout(() => {
+                        inThrottle = false;
+                    }, limit);
+                }
+            };
+        }
+
+        // Function to handle scroll event
+        function onScroll() {
+            console.log("Scroll event triggered");
+        }
+
+        // Throttle the scroll event to only run every 300 milliseconds
+        window.addEventListener("scroll", throttle(onScroll, 300));
+    </script>
+</body>
+</html>
