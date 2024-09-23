@@ -1,11 +1,33 @@
 <html>
+  <body>
+    <input type="text" id="search" />
 
-<body>
+    <script>
+      function debounce(fn, delay) {
+        let timerId = null;
 
-    <h1>
-        hello, world
-    </h1>
-</body>
-<script src="index.js"></script>
+        return function (...args) {
+          if (timerId) {
+            clearTimeout(timerId);
+          }
+          timerId = setTimeout(() => {
+            fn.apply(this, args);
+          }, delay);
+        };
+      }
 
+      function performSearch() {
+        console.log("performing search");
+      }
+
+      let debouncedSearch = debounce(function () {
+        performSearch();
+      }, 500);
+
+      document
+        .getElementById("search")
+        .addEventListener("input", debouncedSearch);
+    </script>
+  </body>
+  <script src="index.js"></script>
 </html>
